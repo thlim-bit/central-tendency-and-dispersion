@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Worksheet: Central Tendency & Dispersion</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .drag-item { cursor: grab; }
+        .drag-item:active { cursor: grabbing; }
+        .drop-zone.over { border-color: #3b82f6; background-color: #eff6ff; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-12">
+
+    <!-- Header & Controls -->
+    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight"><i class="fa-solid fa-calculator mr-2"></i>Central Tendency & Dispersion Worksheet</h1>
+                <p class="text-indigo-200 text-sm">Practice Mean, Median, Mode, Range, IQR, Variance & Standard Deviation for Discrete Data.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="generateRandomDataset()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-2 rounded-lg shadow transition text-xs flex items-center gap-1.5 border border-indigo-400">
+                    <i class="fa-solid fa-rotate mr-1"></i> New Random Data
+                </button>
+                <button onclick="calculateTotalScore()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-check-circle"></i> Submit Worksheet
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-8">
+
+        <!-- Student Metadata Form -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Student Name</label>
+                <input type="text" id="studentName" placeholder="Enter your full name" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Class / Section</label>
+                <input type="text" id="studentClass" placeholder="e.g. Grade 10-A" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Date</label>
+                <input type="date" id="worksheetDate" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+        </div>
+
+        <!-- Score Dashboard -->
+        <div id="scoreBox" class="hidden bg-emerald-50 border border-emerald-300 rounded-xl p-6 text-center">
+            <h2 class="text-2xl font-bold text-emerald-800">Worksheet Complete!</h2>
+            <p class="text-emerald-700 text-lg mt-1">Your Total Score: <span id="finalScore" class="font-extrabold text-2xl text-emerald-900">0</span> / 100</p>
+            <p id="scoreFeedback" class="text-slate-600 mt-2 text-sm"></p>
+        </div>
+
+        <!-- SECTION 1: UNGROUPED DISCRETE DATA (CENTRAL TENDENCY) -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-arrow-down-short-wide mr-2 text-indigo-600"></i> Section 1: Raw Discrete Dataset Analysis</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">Ungrouped Data</span>
+            </div>
+            <div class="p-6 space-y-6">
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
+                    <p class="font-semibold text-slate-700 mb-1">Scenario:</p>
+                    <p>A group of students took a 10-item quiz. Their scores were recorded as follows:</p>
+                    <div id="sec1_rawDataDisplay" class="mt-3 p-3 bg-indigo-900 text-indigo-100 rounded-lg text-center font-mono font-bold text-base tracking-widest shadow-inner">
+                        <!-- Dynamic raw numbers -->
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">1.1 Find the Mode</label>
+                        <input type="number" id="q1_mode" placeholder="Mode value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">1.2 Find the Median</label>
+                        <input type="number" step="0.5" id="q1_median" placeholder="Median value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">1.3 Calculate the Mean (1 d.p.)</label>
+                        <input type="number" step="0.1" id="q1_mean" placeholder="Mean value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DISCRETE FREQUENCY TABLE (MEAN & MEDIAN) -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-table-list mr-2 text-indigo-600"></i> Section 2: Frequency Distribution Calculations</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">Grouped Discrete Data</span>
+            </div>
+            <div class="p-6 space-y-6">
+                <p class="text-sm text-slate-600">The frequency table shows the number of pets (<span class="font-mono text-indigo-700 font-bold">x</span>) owned by households (<span class="font-mono text-indigo-700 font-bold">f</span>):</p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border border-slate-200 rounded-lg overflow-hidden max-w-lg mx-auto">
+                        <thead class="bg-slate-100 text-slate-700 font-semibold">
+                            <tr>
+                                <th class="p-3 border-b text-center">Number of Pets (x)</th>
+                                <th class="p-3 border-b text-center">Frequency (f)</th>
+                                <th class="p-3 border-b text-center bg-indigo-50">fx</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-center font-medium">
+                            <tr>
+                                <td class="p-2.5">0</td>
+                                <td class="p-2.5" id="sec2_f0">4</td>
+                                <td class="p-2.5 bg-indigo-50/50 font-mono" id="sec2_fx0">0</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5">1</td>
+                                <td class="p-2.5" id="sec2_f1">8</td>
+                                <td class="p-2.5 bg-indigo-50/50 font-mono" id="sec2_fx1">8</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5">2</td>
+                                <td class="p-2.5" id="sec2_f2">10</td>
+                                <td class="p-2.5 bg-indigo-50/50 font-mono" id="sec2_fx2">20</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5">3</td>
+                                <td class="p-2.5" id="sec2_f3">5</td>
+                                <td class="p-2.5 bg-indigo-50/50 font-mono" id="sec2_fx3">15</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5">4</td>
+                                <td class="p-2.5" id="sec2_f4">3</td>
+                                <td class="p-2.5 bg-indigo-50/50 font-mono" id="sec2_fx4">12</td>
+                            </tr>
+                            <tr class="bg-slate-100 font-bold">
+                                <td class="p-2.5">Total</td>
+                                <td class="p-2.5 text-indigo-700">N = <span id="sec2_sumF">30</span></td>
+                                <td class="p-2.5 text-indigo-700 bg-indigo-100">Σfx = <span id="sec2_sumFX">55</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-200">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">2.1 Calculate the mean number of pets per household (2 d.p.):</label>
+                        <input type="number" step="0.01" id="q2_mean" placeholder="Mean" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">2.2 What is the median number of pets?</label>
+                        <input type="number" step="0.5" id="q2_median" placeholder="Median" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: RANGE, QUARTILES & INTERQUARTILE RANGE (IQR) -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-arrows-left-right mr-2 text-indigo-600"></i> Section 3: Range & Quartiles</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">Measures of Dispersion</span>
+            </div>
+            <div class="p-6 space-y-6">
+                <p class="text-sm text-slate-600">Given the ordered dataset of 11 discrete observations:</p>
+                <div id="sec3_rawDataDisplay" class="p-3 bg-slate-100 border border-slate-200 rounded-lg text-center font-mono font-bold text-indigo-900 text-sm tracking-widest">
+                    <!-- Dynamic sorted array -->
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">3.1 Range</label>
+                        <input type="number" id="q3_range" placeholder="Max - Min" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">3.2 Lower Quartile (Q1)</label>
+                        <input type="number" step="0.5" id="q3_q1" placeholder="Q1 value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">3.3 Upper Quartile (Q3)</label>
+                        <input type="number" step="0.5" id="q3_q3" placeholder="Q3 value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                        <label class="block text-xs font-bold text-slate-600 uppercase">3.4 Interquartile Range (IQR)</label>
+                        <input type="number" step="0.5" id="q3_iqr" placeholder="Q3 - Q1" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: VARIANCE & STANDARD DEVIATION -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-chart-line mr-2 text-indigo-600"></i> Section 4: Variance & Standard Deviation</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">Advanced Dispersion</span>
+            </div>
+            <div class="p-6 space-y-6">
+                <p class="text-sm text-slate-600">Consider the discrete dataset: <strong id="sec4_rawDataDisplay" class="font-mono text-indigo-700">Loading...</strong></p>
+
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-4">
+                    <p class="text-xs text-slate-500">Use formulas: Variance <span class="font-mono">σ² = (Σx² / N) - (x̄)²</span> and Standard Deviation <span class="font-mono">σ = √(Variance)</span></p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded border">
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Mean (x̄)</label>
+                            <input type="number" step="0.1" id="q4_mean" placeholder="Mean" class="w-full px-3 py-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Population Variance (σ²) (2 d.p.)</label>
+                            <input type="number" step="0.01" id="q4_var" placeholder="Variance" class="w-full px-3 py-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Standard Deviation (σ) (2 d.p.)</label>
+                            <input type="number" step="0.01" id="q4_std" placeholder="Std Dev" class="w-full px-3 py-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: DRAG AND DROP MATCHING -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-puzzle-piece mr-2 text-indigo-600"></i> Section 5: Statistical Concepts Matching</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">Drag & Drop</span>
+            </div>
+            <div class="p-6 space-y-6">
+                <p class="text-sm text-slate-600">Match each statistical measure to its correct definition by dragging cards into boxes:</p>
+
+                <!-- Draggable Bank -->
+                <div class="flex flex-wrap gap-2 p-4 bg-slate-100 rounded-lg border border-slate-200" id="dragBank">
+                    <div draggable="true" ondragstart="drag(event)" id="drag_mean" class="drag-item bg-indigo-600 text-white font-medium px-3 py-2 rounded-md text-xs shadow hover:bg-indigo-700">Mean</div>
+                    <div draggable="true" ondragstart="drag(event)" id="drag_median" class="drag-item bg-indigo-600 text-white font-medium px-3 py-2 rounded-md text-xs shadow hover:bg-indigo-700">Median</div>
+                    <div draggable="true" ondragstart="drag(event)" id="drag_iqr" class="drag-item bg-indigo-600 text-white font-medium px-3 py-2 rounded-md text-xs shadow hover:bg-indigo-700">Interquartile Range</div>
+                    <div draggable="true" ondragstart="drag(event)" id="drag_sd" class="drag-item bg-indigo-600 text-white font-medium px-3 py-2 rounded-md text-xs shadow hover:bg-indigo-700">Standard Deviation</div>
+                </div>
+
+                <!-- Targets -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
+                        <p class="text-xs text-slate-700 mb-2 font-medium"><strong>Definition:</strong> The middle value when raw data is arranged in ascending order.</p>
+                        <div ondrop="drop(event, 'median')" ondragover="allowDrop(event)" id="target_median" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
+                            Drop Matching Concept Here
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
+                        <p class="text-xs text-slate-700 mb-2 font-medium"><strong>Definition:</strong> The arithmetic average calculated by dividing the sum of values by total observations.</p>
+                        <div ondrop="drop(event, 'mean')" ondragover="allowDrop(event)" id="target_mean" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
+                            Drop Matching Concept Here
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
+                        <p class="text-xs text-slate-700 mb-2 font-medium"><strong>Definition:</strong> The range of the middle 50% of values, resistant to extreme outliers.</p>
+                        <div ondrop="drop(event, 'iqr')" ondragover="allowDrop(event)" id="target_iqr" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
+                            Drop Matching Concept Here
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
+                        <p class="text-xs text-slate-700 mb-2 font-medium"><strong>Definition:</strong> A measure of average spread of data values relative to the mean.</p>
+                        <div ondrop="drop(event, 'sd')" ondragover="allowDrop(event)" id="target_sd" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
+                            Drop Matching Concept Here
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: CONCEPTUAL & INTERPRETATION MCQS -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-list-check mr-2 text-indigo-600"></i> Section 6: Conceptual Analysis (MCQ)</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">Multiple Choice</span>
+            </div>
+            <div class="p-6 space-y-6">
+
+                <!-- Q6.1 Outlier impact -->
+                <div class="space-y-3 pb-6 border-b border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-sm">Question 6.1: Outlier Sensitivity</h3>
+                    <p class="text-xs text-slate-600">If an extreme high outlier is added to a dataset, which measure is affected the MOST?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                        <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs">
+                            <input type="radio" name="mcq1" value="A" class="accent-indigo-600 mr-2"> Median
+                        </label>
+                        <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs">
+                            <input type="radio" name="mcq1" value="B" class="accent-indigo-600 mr-2"> Mean & Range
+                        </label>
+                        <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs">
+                            <input type="radio" name="mcq1" value="C" class="accent-indigo-600 mr-2"> Mode & IQR
+                        </label>
+                    </div>
+                    <div id="feedback_mcq1" class="text-xs font-semibold mt-1"></div>
+                </div>
+
+                <!-- Q6.2 Standard deviation properties -->
+                <div class="space-y-3">
+                    <h3 class="font-bold text-slate-800 text-sm">Question 6.2: Transformation of Data</h3>
+                    <p class="text-xs text-slate-600">If every score in a discrete dataset is multiplied by 2, what happens to the Standard Deviation?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                        <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs">
+                            <input type="radio" name="mcq2" value="A" class="accent-indigo-600 mr-2"> It stays the same
+                        </label>
+                        <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs">
+                            <input type="radio" name="mcq2" value="B" class="accent-indigo-600 mr-2"> It doubles (multiplied by 2)
+                        </label>
+                        <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs">
+                            <input type="radio" name="mcq2" value="C" class="accent-indigo-600 mr-2"> It quadruples (multiplied by 4)
+                        </label>
+                    </div>
+                    <div id="feedback_mcq2" class="text-xs font-semibold mt-1"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 7: REAL-WORLD APPLICATIONS & DECISION MAKING -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-indigo-900"><i class="fa-solid fa-briefcase mr-2 text-indigo-600"></i> Section 7: Practical Applications & Problem Solving</h2>
+                <span class="text-xs bg-indigo-200 text-indigo-800 font-semibold px-2.5 py-1 rounded-full">5 Randomized Scenarios</span>
+            </div>
+            <div class="p-6 space-y-6" id="section7Container">
+                <!-- Dynamically generated 5 randomized questions will be injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Calculation & Validation Engine -->
+    <script>
+        let dataStore = {};
+
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Helper to shuffle arrays
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function generateRandomDataset() {
+            // Section 1 Data: 9 random values
+            let sec1 = [];
+            let modeVal = randInt(4, 7);
+            sec1.push(modeVal, modeVal, modeVal); // guarantee mode
+            while (sec1.length < 9) {
+                sec1.push(randInt(1, 10));
+            }
+            sec1.sort((a, b) => a - b);
+
+            const sum1 = sec1.reduce((a, b) => a + b, 0);
+            const mean1 = parseFloat((sum1 / sec1.length).toFixed(1));
+            const median1 = sec1[Math.floor(sec1.length / 2)];
+
+            dataStore.sec1 = { data: sec1, mode: modeVal, median: median1, mean: mean1 };
+            document.getElementById('sec1_rawDataDisplay').innerText = sec1.join(', ');
+
+            // Section 2 Data: Frequency Table
+            const f0 = randInt(3, 6);
+            const f1 = randInt(6, 10);
+            const f2 = randInt(8, 12);
+            const f3 = randInt(4, 7);
+            const f4 = randInt(2, 5);
+
+            const freqs = [f0, f1, f2, f3, f4];
+            let sumF = 0, sumFX = 0;
+            let expanded2 = [];
+
+            freqs.forEach((f, x) => {
+                sumF += f;
+                sumFX += f * x;
+                document.getElementById(`sec2_f${x}`).innerText = f;
+                document.getElementById(`sec2_fx${x}`).innerText = f * x;
+                for (let i = 0; i < f; i++) expanded2.push(x);
+            });
+
+            document.getElementById('sec2_sumF').innerText = sumF;
+            document.getElementById('sec2_sumFX').innerText = sumFX;
+
+            const mean2 = parseFloat((sumFX / sumF).toFixed(2));
+            expanded2.sort((a, b) => a - b);
+            let median2;
+            const mid = Math.floor(sumF / 2);
+            if (sumF % 2 === 0) {
+                median2 = (expanded2[mid - 1] + expanded2[mid]) / 2;
+            } else {
+                median2 = expanded2[mid];
+            }
+
+            dataStore.sec2 = { mean: mean2, median: median2 };
+
+            // Section 3 Data: 11 values for quartiles
+            let sec3 = [];
+            for (let i = 0; i < 11; i++) sec3.push(randInt(10, 50));
+            sec3.sort((a, b) => a - b);
+
+            const q1 = sec3[2];
+            const q3 = sec3[8];
+            const range3 = sec3[10] - sec3[0];
+            const iqr3 = q3 - q1;
+
+            dataStore.sec3 = { data: sec3, range: range3, q1: q1, q3: q3, iqr: iqr3 };
+            document.getElementById('sec3_rawDataDisplay').innerText = sec3.join(', ');
+
+            // Section 4 Data: Variance & Std Dev
+            let sec4 = [randInt(2, 5), randInt(4, 7), randInt(6, 9), randInt(8, 11), randInt(10, 13)];
+            const sum4 = sec4.reduce((a, b) => a + b, 0);
+            const mean4 = sum4 / sec4.length;
+            const sqDiffs = sec4.map(v => Math.pow(v - mean4, 2));
+            const variance4 = sqDiffs.reduce((a, b) => a + b, 0) / sec4.length;
+            const std4 = Math.sqrt(variance4);
+
+            dataStore.sec4 = {
+                data: sec4,
+                mean: parseFloat(mean4.toFixed(1)),
+                var: parseFloat(variance4.toFixed(2)),
+                std: parseFloat(std4.toFixed(2))
+            };
+            document.getElementById('sec4_rawDataDisplay').innerText = sec4.join(', ');
+
+            // Build Dynamic Section 7 (5 Questions Sampled & Randomized)
+            generateSection7Questions();
+
+            // Reset Input Fields
+            ['q1_mode', 'q1_median', 'q1_mean', 'q2_mean', 'q2_median', 'q3_range', 'q3_q1', 'q3_q3', 'q3_iqr', 'q4_mean', 'q4_var', 'q4_std'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            ['feedback_mcq1', 'feedback_mcq2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = '';
+            });
+
+            document.getElementById('scoreBox').classList.add('hidden');
+        }
+
+        // Section 7 Dynamic Question Generator Pool
+        function generateSection7Questions() {
+            // Pool of question generators
+            const questionPool = [
+                // Generator 1: Skewed Salary
+                () => {
+                    const numStaff = randInt(6, 12);
+                    const staffSalary = randInt(40, 60) * 1000;
+                    const numExecs = randInt(1, 3);
+                    const execSalary = randInt(400, 600) * 1000;
+                    const meanCalc = Math.round((numStaff * staffSalary + numExecs * execSalary) / (numStaff + numExecs));
+                    
+                    return {
+                        title: "Company Salary Analysis",
+                        text: `A tech startup has ${numStaff} junior developers earning $${staffSalary.toLocaleString()} each and ${numExecs} executives earning $${execSalary.toLocaleString()} each. Which central tendency metric best reflects the typical employee's salary?`,
+                        options: [
+                            { text: `Median ($${staffSalary.toLocaleString()})`, correct: true, feedback: "Correct! Skewed data with extreme executive salaries is best represented by the median." },
+                            { text: `Mean ($${meanCalc.toLocaleString()})`, correct: false, feedback: "Incorrect. Executive salaries inflate the mean significantly." },
+                            { text: `Range ($${(execSalary - staffSalary).toLocaleString()})`, correct: false, feedback: "Incorrect. Range measures total spread, not typical central income." }
+                        ]
+                    };
+                },
+                // Generator 2: Quality Control SD
+                () => {
+                    const sdA = (randInt(5, 12) / 10).toFixed(1);
+                    const sdB = (randInt(35, 55) / 10).toFixed(1);
+                    return {
+                        title: "Factory Quality Control",
+                        text: `Machine A and Machine B fill sugar packets with an intended mean weight of 100g. Machine A has a standard deviation of ${sdA}g while Machine B has a standard deviation of ${sdB}g. Which machine produces more consistent and reliable product quality?`,
+                        options: [
+                            { text: `Machine A (Lower Std Dev = ${sdA}g)`, correct: true, feedback: "Correct! A lower standard deviation indicates less variability and greater consistency." },
+                            { text: `Machine B (Higher Std Dev = ${sdB}g)`, correct: false, feedback: "Incorrect. Higher standard deviation indicates greater inconsistency." },
+                            { text: "Both are identical because both means equal 100g", correct: false, feedback: "Incorrect. Standard deviation measures variation regardless of equal means." }
+                        ]
+                    };
+                },
+                // Generator 3: Risk vs IQR
+                () => {
+                    const returnRate = randInt(6, 10);
+                    const iqrX = randInt(1, 3);
+                    const iqrY = randInt(10, 15);
+                    return {
+                        title: "Financial Investment Comparison",
+                        text: `Stock X and Stock Y both offer an average annual return of ${returnRate}%. However, Stock X has an Interquartile Range (IQR) of ${iqrX}% while Stock Y has an IQR of ${iqrY}%. A low-risk investor seeking steady returns should choose:`,
+                        options: [
+                            { text: `Stock X (Narrower IQR = ${iqrX}%)`, correct: true, feedback: "Correct! A smaller interquartile range indicates more predictable returns with lower dispersion/risk." },
+                            { text: `Stock Y (Wider IQR = ${iqrY}%)`, correct: false, feedback: "Incorrect. Wider IQR indicates larger volatility and higher risk." },
+                            { text: "Neither, IQR cannot measure financial variability", correct: false, feedback: "Incorrect. IQR is an effective measure of middle-50% variability." }
+                        ]
+                    };
+                },
+                // Generator 4: Flat Bonus Shift
+                () => {
+                    const bonus = randInt(3, 10);
+                    return {
+                        title: "Test Score Calibration / Flat Shift",
+                        text: `A teacher decides to add a flat +${bonus} bonus marks to every student's score in a class test. How will this adjustment impact the Mean score and the Standard Deviation?`,
+                        options: [
+                            { text: `Mean increases by +${bonus}, Standard Deviation remains UNCHANGED`, correct: true, feedback: `Correct! Adding a constant shift increases the mean by +${bonus}, but leaves dispersion between scores unchanged.` },
+                            { text: `Mean increases by +${bonus}, Standard Deviation increases by +${bonus}`, correct: false, feedback: "Incorrect. Adding a constant shifts all points equally, so relative distances (standard deviation) do not change." },
+                            { text: `Mean remains unchanged, Standard Deviation increases by +${bonus}`, correct: false, feedback: "Incorrect. The mean moves up with the constant addition." }
+                        ]
+                    };
+                },
+                // Generator 5: Real Estate Skewness
+                () => {
+                    return {
+                        title: "Real Estate Pricing & Skewness",
+                        text: "When summarizing house prices in a city where a few multi-million dollar luxury mansions heavily skew the distribution upwards, which pair of measures should a real estate analyst report?",
+                        options: [
+                            { text: "Median & Interquartile Range (IQR)", correct: true, feedback: "Correct! For heavily skewed distributions with extreme outliers, Median and IQR are resistant and robust." },
+                            { text: "Mean & Standard Deviation", correct: false, feedback: "Incorrect. Mean and Standard Deviation are easily distorted by luxury mansion outliers." },
+                            { text: "Mode & Total Range", correct: false, feedback: "Incorrect. Range is hyper-sensitive to extreme values, and mode is uninformative for continuous pricing." }
+                        ]
+                    };
+                },
+                // Generator 6: Trimmed Mean Judging
+                () => {
+                    return {
+                        title: "Olympic Judging & Trimmed Means",
+                        text: "In Olympic gymnastics, judges drop the highest and lowest scores before averaging the remaining marks. What is the primary statistical motivation for using this 'trimmed mean'?",
+                        options: [
+                            { text: "To eliminate the distortion of extreme biased scores/outliers", correct: true, feedback: "Correct! Trimming the extremes prevents rogue or biased judge scores from distorting the athlete's result." },
+                            { text: "To artificially boost every athlete's final average", correct: false, feedback: "Incorrect. Trimming applies symmetrically to high and low extremes." },
+                            { text: "Because standard deviation becomes zero when dropping scores", correct: false, feedback: "Incorrect. Dropping 2 values reduces variation but does not make standard deviation zero." }
+                        ]
+                    };
+                },
+                // Generator 7: Relative Dispersion (Coefficient of Variation)
+                () => {
+                    const priceA = randInt(10, 20);
+                    const sdA = randInt(2, 4);
+                    const priceB = randInt(100, 200);
+                    const sdB = randInt(5, 10);
+                    const cvA = Math.round((sdA / priceA) * 100);
+                    const cvB = Math.round((sdB / priceB) * 100);
+                    return {
+                        title: "Relative Volatility Comparison",
+                        text: `Asset A (Mean = $${priceA}, Std Dev = $${sdA}) and Asset B (Mean = $${priceB}, Std Dev = $${sdB}). Which asset has greater RELATIVE volatility relative to its price level?`,
+                        options: [
+                            { text: `Asset A (Relative CV = ${cvA}% vs ${cvB}% for B)`, correct: cvA > cvB, feedback: `Correct! Relative variability (Std Dev / Mean) shows Asset A has ${cvA}% relative risk vs ${cvB}% for B.` },
+                            { text: `Asset B (Relative CV = ${cvB}% vs ${cvA}% for A)`, correct: cvB > cvA, feedback: `Correct! Relative variability (Std Dev / Mean) shows Asset B has ${cvB}% relative risk vs ${cvA}% for A.` },
+                            { text: "Both have identical relative volatility", correct: cvA === cvB, feedback: "Correct! Both assets have equal relative coefficients of variation." }
+                        ]
+                    };
+                },
+                // Generator 8: Outlier Threshold
+                () => {
+                    const q1 = randInt(15, 30);
+                    const iqr = randInt(15, 25);
+                    const q3 = q1 + iqr;
+                    const upperFence = q3 + 1.5 * iqr;
+                    return {
+                        title: "Outlier Boundary Calculation",
+                        text: `A dataset has Q1 = ${q1} and Q3 = ${q3} (IQR = ${iqr}). According to the standard 1.5 × IQR rule, any score above what value is classified as an upper outlier?`,
+                        options: [
+                            { text: `Value > ${upperFence} (${q3} + 1.5 × ${iqr})`, correct: true, feedback: `Correct! Upper outlier threshold = Q3 + (1.5 × IQR) = ${q3} + ${1.5 * iqr} = ${upperFence}.` },
+                            { text: `Value > ${q3 + iqr} (${q3} + ${iqr})`, correct: false, feedback: "Incorrect. The formula requires 1.5 times the IQR, not 1.0 times." },
+                            { text: `Value > ${q1 + 2 * iqr}`, correct: false, feedback: "Incorrect. Upper fence formula is Q3 + 1.5(IQR)." }
+                        ]
+                    };
+                }
+            ];
+
+            // Pick 5 random unique questions from pool
+            const selectedGenerators = shuffleArray(questionPool).slice(0, 5);
+            dataStore.sec7 = [];
+
+            const container = document.getElementById('section7Container');
+            container.innerHTML = '';
+
+            selectedGenerators.forEach((gen, index) => {
+                const qData = gen();
+                // Shuffle choices
+                const shuffledOpts = shuffleArray(qData.options);
+                
+                // Save truth index & feedbacks
+                dataStore.sec7.push({
+                    id: index + 1,
+                    options: shuffledOpts
+                });
+
+                let optionsHtml = shuffledOpts.map((opt, optIdx) => `
+                    <label class="cursor-pointer border p-3 rounded-lg hover:border-indigo-500 bg-slate-50 block text-xs transition">
+                        <input type="radio" name="sec7_q${index + 1}" value="${optIdx}" class="accent-indigo-600 mr-2"> ${opt.text}
+                    </label>
+                `).join('');
+
+                const qHtml = `
+                    <div class="space-y-3 ${index < 4 ? 'pb-6 border-b border-slate-200' : ''}">
+                        <h3 class="font-bold text-slate-800 text-sm">Case 7.${index + 1}: ${qData.title}</h3>
+                        <p class="text-xs text-slate-600">${qData.text}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                            ${optionsHtml}
+                        </div>
+                        <div id="feedback_sec7_q${index + 1}" class="text-xs font-semibold mt-1"></div>
+                    </div>
+                `;
+                container.innerHTML += qHtml;
+            });
+        }
+
+        window.onload = function() {
+            generateRandomDataset();
+        };
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.add('over');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev, expectedType) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('over');
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+
+            ev.currentTarget.innerHTML = '';
+            ev.currentTarget.appendChild(draggedElement);
+            ev.currentTarget.dataset.assigned = data;
+        }
+
+        function calculateTotalScore() {
+            let score = 0;
+
+            // Section 1 (15 pts)
+            if (parseInt(document.getElementById('q1_mode').value) === dataStore.sec1.mode) score += 5;
+            if (parseFloat(document.getElementById('q1_median').value) === dataStore.sec1.median) score += 5;
+            if (Math.abs(parseFloat(document.getElementById('q1_mean').value) - dataStore.sec1.mean) <= 0.1) score += 5;
+
+            // Section 2 (15 pts)
+            if (Math.abs(parseFloat(document.getElementById('q2_mean').value) - dataStore.sec2.mean) <= 0.02) score += 7.5;
+            if (parseFloat(document.getElementById('q2_median').value) === dataStore.sec2.median) score += 7.5;
+
+            // Section 3 (16 pts)
+            if (parseInt(document.getElementById('q3_range').value) === dataStore.sec3.range) score += 4;
+            if (parseFloat(document.getElementById('q3_q1').value) === dataStore.sec3.q1) score += 4;
+            if (parseFloat(document.getElementById('q3_q3').value) === dataStore.sec3.q3) score += 4;
+            if (parseFloat(document.getElementById('q3_iqr').value) === dataStore.sec3.iqr) score += 4;
+
+            // Section 4 (15 pts)
+            if (Math.abs(parseFloat(document.getElementById('q4_mean').value) - dataStore.sec4.mean) <= 0.1) score += 5;
+            if (Math.abs(parseFloat(document.getElementById('q4_var').value) - dataStore.sec4.var) <= 0.05) score += 5;
+            if (Math.abs(parseFloat(document.getElementById('q4_std').value) - dataStore.sec4.std) <= 0.05) score += 5;
+
+            // Section 5 Drag & Drop (12 pts)
+            if (document.getElementById('target_median').dataset.assigned === 'drag_median') score += 3;
+            if (document.getElementById('target_mean').dataset.assigned === 'drag_mean') score += 3;
+            if (document.getElementById('target_iqr').dataset.assigned === 'drag_iqr') score += 3;
+            if (document.getElementById('target_sd').dataset.assigned === 'drag_sd') score += 3;
+
+            // Section 6 MCQs (12 pts)
+            const mcq1 = document.querySelector('input[name="mcq1"]:checked');
+            const fb1 = document.getElementById('feedback_mcq1');
+            if (mcq1 && mcq1.value === 'B') {
+                score += 6;
+                fb1.className = "text-xs font-semibold text-emerald-600 mt-1";
+                fb1.innerText = "Correct! Mean and Range use all/extreme values and are strongly pulled by outliers.";
+            } else {
+                fb1.className = "text-xs font-semibold text-rose-600 mt-1";
+                fb1.innerText = "Incorrect. Mean and Range are most sensitive to extreme values.";
+            }
+
+            const mcq2 = document.querySelector('input[name="mcq2"]:checked');
+            const fb2 = document.getElementById('feedback_mcq2');
+            if (mcq2 && mcq2.value === 'B') {
+                score += 6;
+                fb2.className = "text-xs font-semibold text-emerald-600 mt-1";
+                fb2.innerText = "Correct! Multiplying data by constant k multiplies standard deviation by k.";
+            } else {
+                fb2.className = "text-xs font-semibold text-rose-600 mt-1";
+                fb2.innerText = "Incorrect. Standard deviation scales directly by the same factor.";
+            }
+
+            // Section 7 Dynamic MCQs (15 pts total -> 3 pts each for 5 questions)
+            dataStore.sec7.forEach((q, idx) => {
+                const qNum = idx + 1;
+                const checked = document.querySelector(`input[name="sec7_q${qNum}"]:checked`);
+                const fb = document.getElementById(`feedback_sec7_q${qNum}`);
+
+                if (checked) {
+                    const selectedOptIdx = parseInt(checked.value);
+                    const optObj = q.options[selectedOptIdx];
+                    if (optObj.correct) {
+                        score += 3;
+                        fb.className = "text-xs font-semibold text-emerald-600 mt-1";
+                        fb.innerText = optObj.feedback;
+                    } else {
+                        fb.className = "text-xs font-semibold text-rose-600 mt-1";
+                        fb.innerText = optObj.feedback;
+                    }
+                } else {
+                    fb.className = "text-xs font-semibold text-amber-600 mt-1";
+                    fb.innerText = "Please select an answer for this scenario.";
+                }
+            });
+
+            // Score Display
+            const scoreBox = document.getElementById('scoreBox');
+            scoreBox.classList.remove('hidden');
+            document.getElementById('finalScore').innerText = Math.round(score);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
