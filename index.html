@@ -82,14 +82,17 @@
                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
                         <label class="block text-xs font-bold text-slate-600 uppercase">1.1 Find the Mode</label>
                         <input type="number" id="q1_mode" placeholder="Mode value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q1_mode" class="text-xs font-semibold mt-1"></div>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
                         <label class="block text-xs font-bold text-slate-600 uppercase">1.2 Find the Median</label>
                         <input type="number" step="0.5" id="q1_median" placeholder="Median value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q1_median" class="text-xs font-semibold mt-1"></div>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
                         <label class="block text-xs font-bold text-slate-600 uppercase">1.3 Calculate the Mean (1 d.p.)</label>
                         <input type="number" step="0.1" id="q1_mean" placeholder="Mean value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q1_mean" class="text-xs font-semibold mt-1"></div>
                     </div>
                 </div>
             </div>
@@ -152,10 +155,12 @@
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">2.1 Calculate the mean number of pets per household (2 d.p.):</label>
                         <input type="number" step="0.01" id="q2_mean" placeholder="Mean" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q2_mean" class="text-xs font-semibold mt-1"></div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">2.2 What is the median number of pets?</label>
                         <input type="number" step="0.5" id="q2_median" placeholder="Median" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q2_median" class="text-xs font-semibold mt-1"></div>
                     </div>
                 </div>
             </div>
@@ -177,18 +182,22 @@
                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
                         <label class="block text-xs font-bold text-slate-600 uppercase">3.1 Range</label>
                         <input type="number" id="q3_range" placeholder="Max - Min" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q3_range" class="text-xs font-semibold mt-1"></div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
                         <label class="block text-xs font-bold text-slate-600 uppercase">3.2 Lower Quartile (Q1)</label>
                         <input type="number" step="0.5" id="q3_q1" placeholder="Q1 value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q3_q1" class="text-xs font-semibold mt-1"></div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
                         <label class="block text-xs font-bold text-slate-600 uppercase">3.3 Upper Quartile (Q3)</label>
                         <input type="number" step="0.5" id="q3_q3" placeholder="Q3 value" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q3_q3" class="text-xs font-semibold mt-1"></div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
                         <label class="block text-xs font-bold text-slate-600 uppercase">3.4 Interquartile Range (IQR)</label>
                         <input type="number" step="0.5" id="q3_iqr" placeholder="Q3 - Q1" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <div id="feedback_q3_iqr" class="text-xs font-semibold mt-1"></div>
                     </div>
                 </div>
             </div>
@@ -210,14 +219,17 @@
                         <div class="bg-white p-3 rounded border">
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Mean (x̄)</label>
                             <input type="number" step="0.1" id="q4_mean" placeholder="Mean" class="w-full px-3 py-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                            <div id="feedback_q4_mean" class="text-xs font-semibold mt-1"></div>
                         </div>
                         <div class="bg-white p-3 rounded border">
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Population Variance (σ²) (2 d.p.)</label>
                             <input type="number" step="0.01" id="q4_var" placeholder="Variance" class="w-full px-3 py-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                            <div id="feedback_q4_var" class="text-xs font-semibold mt-1"></div>
                         </div>
                         <div class="bg-white p-3 rounded border">
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Standard Deviation (σ) (2 d.p.)</label>
                             <input type="number" step="0.01" id="q4_std" placeholder="Std Dev" class="w-full px-3 py-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                            <div id="feedback_q4_std" class="text-xs font-semibold mt-1"></div>
                         </div>
                     </div>
                 </div>
@@ -248,6 +260,7 @@
                         <div ondrop="drop(event, 'median')" ondragover="allowDrop(event)" id="target_median" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
                             Drop Matching Concept Here
                         </div>
+                        <div id="feedback_target_median" class="text-xs font-semibold mt-1"></div>
                     </div>
 
                     <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
@@ -255,6 +268,7 @@
                         <div ondrop="drop(event, 'mean')" ondragover="allowDrop(event)" id="target_mean" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
                             Drop Matching Concept Here
                         </div>
+                        <div id="feedback_target_mean" class="text-xs font-semibold mt-1"></div>
                     </div>
 
                     <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
@@ -262,6 +276,7 @@
                         <div ondrop="drop(event, 'iqr')" ondragover="allowDrop(event)" id="target_iqr" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
                             Drop Matching Concept Here
                         </div>
+                        <div id="feedback_target_iqr" class="text-xs font-semibold mt-1"></div>
                     </div>
 
                     <div class="border border-slate-200 p-4 rounded-lg bg-slate-50">
@@ -269,6 +284,7 @@
                         <div ondrop="drop(event, 'sd')" ondragover="allowDrop(event)" id="target_sd" class="drop-zone h-12 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-white text-xs text-slate-400 font-medium">
                             Drop Matching Concept Here
                         </div>
+                        <div id="feedback_target_sd" class="text-xs font-semibold mt-1"></div>
                     </div>
                 </div>
             </div>
@@ -435,17 +451,17 @@
             // Build Dynamic Section 7 (5 Questions Sampled & Randomized)
             generateSection7Questions();
 
-            // Reset Input Fields
+            // Reset Input Fields & Feedback Messages
             ['q1_mode', 'q1_median', 'q1_mean', 'q2_mean', 'q2_median', 'q3_range', 'q3_q1', 'q3_q3', 'q3_iqr', 'q4_mean', 'q4_var', 'q4_std'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.value = '';
             });
 
             document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-            ['feedback_mcq1', 'feedback_mcq2'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.innerText = '';
-            });
+            
+            // Clear all feedback containers across all sections
+            const allFeedbacks = document.querySelectorAll('[id^="feedback_"]');
+            allFeedbacks.forEach(el => el.innerText = '');
 
             document.getElementById('scoreBox').classList.add('hidden');
         }
@@ -639,56 +655,200 @@
         function calculateTotalScore() {
             let score = 0;
 
+            const setFeedback = (id, isCorrect, correctMsg, errorMsg) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (isCorrect) {
+                    el.className = "text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 p-1.5 rounded border border-emerald-200";
+                    el.innerText = correctMsg;
+                } else {
+                    el.className = "text-xs font-semibold text-rose-600 mt-1 bg-rose-50 p-1.5 rounded border border-rose-200";
+                    el.innerText = errorMsg;
+                }
+            };
+
             // Section 1 (15 pts)
-            if (parseInt(document.getElementById('q1_mode').value) === dataStore.sec1.mode) score += 5;
-            if (parseFloat(document.getElementById('q1_median').value) === dataStore.sec1.median) score += 5;
-            if (Math.abs(parseFloat(document.getElementById('q1_mean').value) - dataStore.sec1.mean) <= 0.1) score += 5;
+            const val1_mode = parseInt(document.getElementById('q1_mode').value);
+            const isCorr1_mode = val1_mode === dataStore.sec1.mode;
+            if (isCorr1_mode) score += 5;
+            setFeedback('feedback_q1_mode', isCorr1_mode, 
+                "✓ Correct! Mode is the score that appears with highest frequency.", 
+                isNaN(val1_mode) 
+                    ? "❌ Empty field. Hint: Identify the score that repeats the most times in the dataset."
+                    : `❌ Incorrect. Mode is the most frequently occurring value in the list. Count the frequency of each number to find the score repeating most (Target Mode = ${dataStore.sec1.mode}).`
+            );
+
+            const val1_med = parseFloat(document.getElementById('q1_median').value);
+            const isCorr1_med = val1_med === dataStore.sec1.median;
+            if (isCorr1_med) score += 5;
+            setFeedback('feedback_q1_median', isCorr1_med, 
+                "✓ Correct! For 9 ordered numbers, median is the 5th value: (9+1)/2 = 5th position.", 
+                isNaN(val1_med) 
+                    ? "❌ Empty field. Hint: Arrange numbers in ascending order and locate the middle value at position (N+1)/2."
+                    : `❌ Incorrect. For N = 9 ordered values, use the position formula: Median Position = (N + 1) / 2 = 5th value. Counting 5 values from left gives ${dataStore.sec1.median}.`
+            );
+
+            const val1_mean = parseFloat(document.getElementById('q1_mean').value);
+            const isCorr1_mean = Math.abs(val1_mean - dataStore.sec1.mean) <= 0.1;
+            if (isCorr1_mean) score += 5;
+            const sumSec1 = dataStore.sec1.data.reduce((a, b) => a + b, 0);
+            setFeedback('feedback_q1_mean', isCorr1_mean, 
+                "✓ Correct! Calculated as Total Sum / N.", 
+                isNaN(val1_mean) 
+                    ? "❌ Empty field. Hint: Sum all 9 values and divide by N = 9."
+                    : `❌ Incorrect. Formula: Mean (x̄) = (Sum of all values) / N. Here, Sum = ${sumSec1} and N = 9. So x̄ = ${sumSec1} / 9 = ${dataStore.sec1.mean} (rounded to 1 decimal place).`
+            );
 
             // Section 2 (15 pts)
-            if (Math.abs(parseFloat(document.getElementById('q2_mean').value) - dataStore.sec2.mean) <= 0.02) score += 7.5;
-            if (parseFloat(document.getElementById('q2_median').value) === dataStore.sec2.median) score += 7.5;
+            const val2_mean = parseFloat(document.getElementById('q2_mean').value);
+            const isCorr2_mean = Math.abs(val2_mean - dataStore.sec2.mean) <= 0.02;
+            if (isCorr2_mean) score += 7.5;
+            const sumFXVal = document.getElementById('sec2_sumFX').innerText;
+            const sumFVal = document.getElementById('sec2_sumF').innerText;
+            setFeedback('feedback_q2_mean', isCorr2_mean, 
+                "✓ Correct! Calculated as Σfx / Σf.", 
+                isNaN(val2_mean) 
+                    ? "❌ Empty field. Hint: Use formula Mean = Σfx / Σf."
+                    : `❌ Incorrect. Formula for grouped frequency: Mean (x̄) = Σfx / Σf. Divide total product sum (Σfx = ${sumFXVal}) by total frequency (Σf = N = ${sumFVal}) to get ${dataStore.sec2.mean}.`
+            );
+
+            const val2_med = parseFloat(document.getElementById('q2_median').value);
+            const isCorr2_med = val2_med === dataStore.sec2.median;
+            if (isCorr2_med) score += 7.5;
+            setFeedback('feedback_q2_median', isCorr2_med, 
+                "✓ Correct! Found by accumulating frequencies until reaching middle position.", 
+                isNaN(val2_med) 
+                    ? "❌ Empty field. Hint: Find cumulative frequency (cf) to locate which 'x' category contains middle position N/2."
+                    : `❌ Incorrect. Median position is at N / 2 = ${sumFVal} / 2 = ${parseFloat(sumFVal)/2}. Accumulate frequency column (f) row-by-row until you reach or exceed item position ${parseFloat(sumFVal)/2}. The corresponding category 'x' is ${dataStore.sec2.median}.`
+            );
 
             // Section 3 (16 pts)
-            if (parseInt(document.getElementById('q3_range').value) === dataStore.sec3.range) score += 4;
-            if (parseFloat(document.getElementById('q3_q1').value) === dataStore.sec3.q1) score += 4;
-            if (parseFloat(document.getElementById('q3_q3').value) === dataStore.sec3.q3) score += 4;
-            if (parseFloat(document.getElementById('q3_iqr').value) === dataStore.sec3.iqr) score += 4;
+            const val3_range = parseInt(document.getElementById('q3_range').value);
+            const isCorr3_range = val3_range === dataStore.sec3.range;
+            if (isCorr3_range) score += 4;
+            const max3 = dataStore.sec3.data[10];
+            const min3 = dataStore.sec3.data[0];
+            setFeedback('feedback_q3_range', isCorr3_range, 
+                "✓ Correct! Range = Maximum value - Minimum value.", 
+                isNaN(val3_range)
+                    ? "❌ Empty field. Formula: Range = Max - Min."
+                    : `❌ Incorrect. Formula: Range = Maximum - Minimum. Highest value is ${max3} and lowest is ${min3}, giving ${max3} - ${min3} = ${dataStore.sec3.range}.`
+            );
+
+            const val3_q1 = parseFloat(document.getElementById('q3_q1').value);
+            const isCorr3_q1 = val3_q1 === dataStore.sec3.q1;
+            if (isCorr3_q1) score += 4;
+            setFeedback('feedback_q3_q1', isCorr3_q1, 
+                "✓ Correct! Q1 is the median of the lower 5 observations.", 
+                isNaN(val3_q1)
+                    ? "❌ Empty field. Hint: Q1 is the 3rd term in an 11-element ordered list."
+                    : `❌ Incorrect. For N = 11 values, Q1 position = (N + 1) / 4 = 12 / 4 = 3rd value. The 3rd value in the ordered list is ${dataStore.sec3.q1}.`
+            );
+
+            const val3_q3 = parseFloat(document.getElementById('q3_q3').value);
+            const isCorr3_q3 = val3_q3 === dataStore.sec3.q3;
+            if (isCorr3_q3) score += 4;
+            setFeedback('feedback_q3_q3', isCorr3_q3, 
+                "✓ Correct! Q3 is the median of the upper 5 observations.", 
+                isNaN(val3_q3)
+                    ? "❌ Empty field. Hint: Q3 is the 9th term in an 11-element ordered list."
+                    : `❌ Incorrect. For N = 11 values, Q3 position = 3(N + 1) / 4 = 36 / 4 = 9th value. The 9th value in the ordered list is ${dataStore.sec3.q3}.`
+            );
+
+            const val3_iqr = parseFloat(document.getElementById('q3_iqr').value);
+            const isCorr3_iqr = val3_iqr === dataStore.sec3.iqr;
+            if (isCorr3_iqr) score += 4;
+            setFeedback('feedback_q3_iqr', isCorr3_iqr, 
+                "✓ Correct! Interquartile Range = Q3 - Q1.", 
+                isNaN(val3_iqr)
+                    ? "❌ Empty field. Formula: IQR = Q3 - Q1."
+                    : `❌ Incorrect. Formula: Interquartile Range (IQR) = Upper Quartile (Q3) - Lower Quartile (Q1). Subtract Q1 (${dataStore.sec3.q1}) from Q3 (${dataStore.sec3.q3}) = ${dataStore.sec3.q3 - dataStore.sec3.q1}.`
+            );
 
             // Section 4 (15 pts)
-            if (Math.abs(parseFloat(document.getElementById('q4_mean').value) - dataStore.sec4.mean) <= 0.1) score += 5;
-            if (Math.abs(parseFloat(document.getElementById('q4_var').value) - dataStore.sec4.var) <= 0.05) score += 5;
-            if (Math.abs(parseFloat(document.getElementById('q4_std').value) - dataStore.sec4.std) <= 0.05) score += 5;
+            const val4_mean = parseFloat(document.getElementById('q4_mean').value);
+            const isCorr4_mean = Math.abs(val4_mean - dataStore.sec4.mean) <= 0.1;
+            if (isCorr4_mean) score += 5;
+            setFeedback('feedback_q4_mean', isCorr4_mean, 
+                "✓ Correct!", 
+                isNaN(val4_mean)
+                    ? "❌ Empty field. Calculate mean by summing values and dividing by N = 5."
+                    : `❌ Incorrect. Sum the 5 numbers and divide by N = 5: Mean (x̄) = ${dataStore.sec4.mean}.`
+            );
+
+            const val4_var = parseFloat(document.getElementById('q4_var').value);
+            const isCorr4_var = Math.abs(val4_var - dataStore.sec4.var) <= 0.05;
+            if (isCorr4_var) score += 5;
+            setFeedback('feedback_q4_var', isCorr4_var, 
+                "✓ Correct! Formula σ² = (Σx² / N) - (x̄)².", 
+                isNaN(val4_var)
+                    ? "❌ Empty field. Formula: Population Variance σ² = (Σx² / N) - (x̄)²."
+                    : `❌ Incorrect. Step 1: Calculate mean x̄ = ${dataStore.sec4.mean}. Step 2: Square each number and find mean of squares (Σx²/N). Step 3: Subtract (x̄)². Target σ² = ${dataStore.sec4.var}.`
+            );
+
+            const val4_std = parseFloat(document.getElementById('q4_std').value);
+            const isCorr4_std = Math.abs(val4_std - dataStore.sec4.std) <= 0.05;
+            if (isCorr4_std) score += 5;
+            setFeedback('feedback_q4_std', isCorr4_std, 
+                "✓ Correct! Standard Deviation σ = √(Variance).", 
+                isNaN(val4_std)
+                    ? "❌ Empty field. Formula: σ = √(Variance)."
+                    : `❌ Incorrect. Standard Deviation is the positive square root of Variance: σ = √(Variance) = √(${dataStore.sec4.var}) = ${dataStore.sec4.std}.`
+            );
 
             // Section 5 Drag & Drop (12 pts)
-            if (document.getElementById('target_median').dataset.assigned === 'drag_median') score += 3;
-            if (document.getElementById('target_mean').dataset.assigned === 'drag_mean') score += 3;
-            if (document.getElementById('target_iqr').dataset.assigned === 'drag_iqr') score += 3;
-            if (document.getElementById('target_sd').dataset.assigned === 'drag_sd') score += 3;
+            const isCorr5_med = document.getElementById('target_median').dataset.assigned === 'drag_median';
+            if (isCorr5_med) score += 3;
+            setFeedback('feedback_target_median', isCorr5_med, 
+                "✓ Correct!", 
+                "❌ Incorrect. The middle value when data is sorted in order is the Median (splits dataset 50% below and 50% above)."
+            );
+
+            const isCorr5_mean = document.getElementById('target_mean').dataset.assigned === 'drag_mean';
+            if (isCorr5_mean) score += 3;
+            setFeedback('feedback_target_mean', isCorr5_mean, 
+                "✓ Correct!", 
+                "❌ Incorrect. The arithmetic average calculated by summing values and dividing by count N is the Mean."
+            );
+
+            const isCorr5_iqr = document.getElementById('target_iqr').dataset.assigned === 'drag_iqr';
+            if (isCorr5_iqr) score += 3;
+            setFeedback('feedback_target_iqr', isCorr5_iqr, 
+                "✓ Correct!", 
+                "❌ Incorrect. The difference Q3 - Q1 measuring middle 50% spread is the Interquartile Range."
+            );
+
+            const isCorr5_sd = document.getElementById('target_sd').dataset.assigned === 'drag_sd';
+            if (isCorr5_sd) score += 3;
+            setFeedback('feedback_target_sd', isCorr5_sd, 
+                "✓ Correct!", 
+                "❌ Incorrect. The square root of variance measuring average distance of scores from the mean is Standard Deviation."
+            );
 
             // Section 6 MCQs (12 pts)
             const mcq1 = document.querySelector('input[name="mcq1"]:checked');
             const fb1 = document.getElementById('feedback_mcq1');
             if (mcq1 && mcq1.value === 'B') {
                 score += 6;
-                fb1.className = "text-xs font-semibold text-emerald-600 mt-1";
-                fb1.innerText = "Correct! Mean and Range use all/extreme values and are strongly pulled by outliers.";
+                fb1.className = "text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 p-1.5 rounded border border-emerald-200";
+                fb1.innerText = "✓ Correct! Mean incorporates every value into its sum, and Range takes the absolute difference Max - Min, making both extremely sensitive to single outlier values.";
             } else {
-                fb1.className = "text-xs font-semibold text-rose-600 mt-1";
-                fb1.innerText = "Incorrect. Mean and Range are most sensitive to extreme values.";
+                fb1.className = "text-xs font-semibold text-rose-600 mt-1 bg-rose-50 p-1.5 rounded border border-rose-200";
+                fb1.innerText = "❌ Incorrect. Outliers shift the sum (distorting the Mean) and expand the extremes (distorting the Range). In contrast, Median and IQR are resistant measures because they rely on middle ranks.";
             }
 
             const mcq2 = document.querySelector('input[name="mcq2"]:checked');
             const fb2 = document.getElementById('feedback_mcq2');
             if (mcq2 && mcq2.value === 'B') {
                 score += 6;
-                fb2.className = "text-xs font-semibold text-emerald-600 mt-1";
-                fb2.innerText = "Correct! Multiplying data by constant k multiplies standard deviation by k.";
+                fb2.className = "text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 p-1.5 rounded border border-emerald-200";
+                fb2.innerText = "✓ Correct! Scaling every data point by constant factor k scales standard deviation by k (i.e. σ_new = k × σ_old). Multiplying by 2 doubles the spread.";
             } else {
-                fb2.className = "text-xs font-semibold text-rose-600 mt-1";
-                fb2.innerText = "Incorrect. Standard deviation scales directly by the same factor.";
+                fb2.className = "text-xs font-semibold text-rose-600 mt-1 bg-rose-50 p-1.5 rounded border border-rose-200";
+                fb2.innerText = "❌ Incorrect. Rule of transformation: Multiplying dataset values by constant k multiplies measures of spread (Std Dev, Range, IQR) by k. Note that Variance multiplies by k² (4), but Standard Deviation scales linearly by k = 2.";
             }
 
-            // Section 7 Dynamic MCQs (15 pts total -> 3 pts each for 5 questions)
+            // Section 7 Dynamic MCQs (15 pts total)
             dataStore.sec7.forEach((q, idx) => {
                 const qNum = idx + 1;
                 const checked = document.querySelector(`input[name="sec7_q${qNum}"]:checked`);
@@ -699,15 +859,15 @@
                     const optObj = q.options[selectedOptIdx];
                     if (optObj.correct) {
                         score += 3;
-                        fb.className = "text-xs font-semibold text-emerald-600 mt-1";
-                        fb.innerText = optObj.feedback;
+                        fb.className = "text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 p-1.5 rounded border border-emerald-200";
+                        fb.innerText = `✓ ${optObj.feedback}`;
                     } else {
-                        fb.className = "text-xs font-semibold text-rose-600 mt-1";
-                        fb.innerText = optObj.feedback;
+                        fb.className = "text-xs font-semibold text-rose-600 mt-1 bg-rose-50 p-1.5 rounded border border-rose-200";
+                        fb.innerText = `❌ ${optObj.feedback}`;
                     }
                 } else {
-                    fb.className = "text-xs font-semibold text-amber-600 mt-1";
-                    fb.innerText = "Please select an answer for this scenario.";
+                    fb.className = "text-xs font-semibold text-amber-600 mt-1 bg-amber-50 p-1.5 rounded border border-amber-200";
+                    fb.innerText = "⚠️ Unanswered question. Please select an answer option to receive diagnostic feedback.";
                 }
             });
 
